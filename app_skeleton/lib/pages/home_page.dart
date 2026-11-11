@@ -144,7 +144,60 @@ class _HomePageState extends State<HomePage> {
                 );
               },
             ),
+            const SizedBox(height: 24),
+            Text('实验室', style: theme.textTheme.titleMedium?.copyWith(fontWeight: FontWeight.w700)),
+            const SizedBox(height: 12),
+            _entryTile(
+              icon: Icons.sync,
+              title: '分页加载实验室',
+              subtitle: 'ListView.builder + 加载更多，每次追加 20 条',
+              route: AppRoutes.paged,
+            ),
+            const SizedBox(height: 10),
+            _entryTile(
+              icon: Icons.info_outline,
+              title: '关于本项目',
+              subtitle: '路由表、组件抽取与 AI 使用标注',
+              route: AppRoutes.about,
+            ),
           ],
+        ),
+      ),
+    );
+  }
+
+  Widget _entryTile({
+    required IconData icon,
+    required String title,
+    required String subtitle,
+    required String route,
+  }) {
+    final theme = Theme.of(context);
+    return Material(
+      color: theme.colorScheme.surface,
+      borderRadius: BorderRadius.circular(16),
+      child: InkWell(
+        borderRadius: BorderRadius.circular(16),
+        onTap: () => Navigator.pushNamed(context, route),
+        child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 14),
+          child: Row(
+            children: [
+              Icon(icon, color: theme.colorScheme.primary),
+              const SizedBox(width: 12),
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(title, style: theme.textTheme.titleSmall?.copyWith(fontWeight: FontWeight.w600)),
+                    const SizedBox(height: 2),
+                    Text(subtitle, style: theme.textTheme.bodySmall),
+                  ],
+                ),
+              ),
+              const Icon(Icons.chevron_right, size: 20),
+            ],
+          ),
         ),
       ),
     );
